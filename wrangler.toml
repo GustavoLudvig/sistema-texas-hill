@@ -1,0 +1,10 @@
+name = "texas-hill-site"
+pages_build_output_dir = "."
+compatibility_date = "2026-01-01"
+
+# KV (BLOG_KV) e R2 (BLOG_IMAGES) sao configurados direto no dashboard do
+# Cloudflare Pages (Settings > Functions > Bindings) na producao.
+# Localmente sao emulados via flags --kv/--r2 no launch.json.
+
+[vars]
+BLOG_IMAGES_PUBLIC_URL = "https://pub-REPLACE.r2.dev"

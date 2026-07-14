@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "texas-hill-site",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["wrangler", "pages", "dev", ".", "--port", "8642", "--local", "--kv", "BLOG_KV", "--r2", "BLOG_IMAGES"],
+      "port": 8642
+    }
+  ]
+}

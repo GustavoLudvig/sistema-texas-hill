@@ -1,0 +1,393 @@
+/* ===== Texas Hill Pousada — Paleta sóbria baseada na logo ===== */
+:root {
+  --bg: #F5F0E8;
+  --bg-alt: #ECE4D6;
+  --text: #2B1B12;
+  --text-soft: #5A4636;
+  --accent: #7A2A1F;
+  --accent-dark: #5E1F17;
+  --secondary: #8C6239;
+  --border: #D8CBB4;
+  --white: #FFFDF9;
+
+  --font-display: "Rye", "Georgia", serif;
+  --font-body: "Poppins", "Segoe UI", sans-serif;
+
+  --container: 1180px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.65;
+}
+
+img { max-width: 100%; display: block; }
+
+a { text-decoration: none; color: inherit; }
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+h1, h2, h3 { font-family: var(--font-display); letter-spacing: .5px; }
+
+/* ===== Header ===== */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: rgba(245, 240, 232, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--border);
+}
+
+.site-header .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--text);
+}
+
+.site-header .logo img { height: 44px; width: auto; }
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.site-nav a {
+  font-size: .92rem;
+  font-weight: 500;
+  color: var(--text-soft);
+  transition: color .2s ease;
+  white-space: nowrap;
+}
+.site-nav a:hover { color: var(--accent); }
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.btn-reservar {
+  background: var(--accent);
+  color: var(--white);
+  padding: 12px 28px;
+  border-radius: 6px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: .85rem;
+  transition: background .2s ease, transform .2s ease;
+  border: none;
+  cursor: pointer;
+}
+.btn-reservar:hover { background: var(--accent-dark); transform: translateY(-1px); }
+
+/* ===== Hero ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+  background:
+    linear-gradient(180deg, rgba(43,27,18,.55), rgba(43,27,18,.75)),
+    var(--bg-alt);
+  background-size: cover;
+  background-position: center;
+  color: var(--white);
+}
+
+.hero-content { max-width: 780px; }
+
+.hero-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: .8rem;
+  color: #E7D9BE;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: #F1E9DC;
+  margin-bottom: 32px;
+}
+
+/* ===== Sections ===== */
+.section {
+  padding: 100px 0;
+}
+.section:nth-of-type(even) { background: var(--bg-alt); }
+
+.section-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.section-inner.reverse { direction: rtl; }
+.section-inner.reverse > * { direction: ltr; }
+
+.section-label {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: .78rem;
+  color: var(--secondary);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.section h2 {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  color: var(--text);
+  margin-bottom: 22px;
+}
+
+.section p {
+  color: var(--text-soft);
+  margin-bottom: 16px;
+  font-size: 1.02rem;
+}
+
+.section p:last-of-type { margin-bottom: 0; }
+
+.section p.destaque {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.media-frame {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--white);
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.media-frame.placeholder {
+  background: repeating-linear-gradient(
+    45deg, var(--border), var(--border) 10px, var(--bg) 10px, var(--bg) 20px
+  );
+}
+
+.media-frame .placeholder-label {
+  background: var(--white);
+  color: var(--text-soft);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: .85rem;
+  border: 1px dashed var(--secondary);
+}
+
+.content-pending {
+  display: inline-block;
+  margin-top: 18px;
+  font-size: .8rem;
+  color: var(--accent);
+  border: 1px dashed var(--accent);
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+/* ===== Mapa ===== */
+.map-wrapper .media-frame { aspect-ratio: 16 / 10; }
+
+/* ===== Histórias de hóspedes ===== */
+.reviews {
+  padding: 100px 0;
+  background: var(--bg-alt);
+}
+
+.reviews .section-label { text-align: center; }
+.reviews h2 { text-align: center; margin-bottom: 6px; }
+
+.reviews-subtitle {
+  text-align: center;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 24px;
+}
+
+.reviews-intro {
+  max-width: 720px;
+  margin: 0 auto 50px;
+  text-align: center;
+  color: var(--text-soft);
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.review-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 28px;
+}
+
+.review-card.featured {
+  border-color: var(--accent);
+  box-shadow: 0 8px 24px rgba(122, 42, 31, .12);
+}
+
+.review-card .stars { color: var(--accent); margin-bottom: 12px; letter-spacing: 2px; }
+.review-card h3 { font-family: var(--font-body); font-size: 1rem; color: var(--text); margin-bottom: 10px; }
+.review-card p { color: var(--text-soft); font-size: .95rem; margin-bottom: 16px; }
+.review-card .author { font-weight: 600; color: var(--text); font-size: .9rem; }
+
+/* ===== Reserva (rodapé) ===== */
+.booking-section {
+  padding: 100px 0 60px;
+  text-align: center;
+}
+
+.booking-section h2 { margin-bottom: 12px; }
+.booking-section > .container > p { color: var(--text-soft); margin-bottom: 40px; }
+
+.booking-card {
+  max-width: 420px;
+  margin: 0 auto;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 10px 30px rgba(43, 27, 18, .08);
+  text-align: left;
+}
+
+.booking-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.booking-card-header .icon {
+  width: 48px; height: 48px;
+  background: var(--accent);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--white);
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.booking-card-header h3 { font-size: 1.15rem; color: var(--text); }
+.booking-card-header span { font-size: .85rem; color: var(--text-soft); }
+
+hr.divider { border: none; border-top: 1px solid var(--border); margin: 18px 0; }
+
+.field-label {
+  display: block;
+  text-transform: uppercase;
+  font-size: .72rem;
+  letter-spacing: 1px;
+  color: var(--text-soft);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.field {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  font-family: var(--font-body);
+  font-size: .95rem;
+  color: var(--text);
+  margin-bottom: 18px;
+  cursor: pointer;
+}
+
+.btn-verificar {
+  width: 100%;
+  padding: 15px;
+  background: var(--accent);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: .95rem;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+.btn-verificar:hover { background: var(--accent-dark); }
+
+/* ===== Footer ===== */
+footer {
+  background: var(--text);
+  color: #D8CBB4;
+  padding: 40px 24px;
+  text-align: center;
+  font-size: .85rem;
+}
+footer a { color: #E7D9BE; }
+
+/* ===== Responsivo ===== */
+@media (max-width: 860px) {
+  .section-inner { grid-template-columns: 1fr; gap: 32px; }
+  .section-inner.reverse { direction: ltr; }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .site-header .logo span { display: none; }
+
+  .nav-toggle { display: block; order: 2; }
+  .btn-reservar { order: 3; }
+
+  .site-nav {
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .25s ease;
+  }
+  .site-nav.open { max-height: 320px; }
+  .site-nav a { width: 100%; padding: 14px 24px; border-top: 1px solid var(--border); }
+}
+
+@media (min-width: 861px) and (max-width: 1080px) {
+  .site-nav { gap: 18px; }
+  .site-nav a { font-size: .85rem; }
+}
