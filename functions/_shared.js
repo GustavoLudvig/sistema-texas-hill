@@ -63,12 +63,14 @@ const HEADER = `
 </script>
 `;
 
-const FOOTER = `
+function footer() {
+  return `
 <footer>
   <p>&copy; ${new Date().getFullYear()} Texas Hill Pousada — Urubici, Serra Catarinense</p>
   <p><a href="https://reservas.texashillpousada.com.br">reservas.texashillpousada.com.br</a></p>
 </footer>
 `;
+}
 
 export function layout({ title, description = "", body }) {
   return `<!DOCTYPE html>
@@ -83,7 +85,7 @@ ${HEAD}
 <body>
 ${HEADER}
 ${body}
-${FOOTER}
+${footer()}
 </body>
 </html>`;
 }
