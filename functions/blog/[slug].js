@@ -21,7 +21,7 @@ export async function onRequestGet({ params, env }) {
   const body = `
 <section class="post-hero">
   <div class="container">
-    <div class="date">${formatDate(post.date)}</div>
+    <div class="date">${post.category ? escapeHtml(post.category) + " · " : ""}${formatDate(post.date)}</div>
     <h1>${escapeHtml(post.title)}</h1>
   </div>
 </section>

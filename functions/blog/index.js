@@ -19,7 +19,7 @@ export async function onRequestGet({ env }) {
           ${p.image ? `<img src="${p.image}" alt="${escapeHtml(p.title)}" loading="lazy" decoding="async" />` : ""}
         </div>
         <div class="body">
-          <div class="date">${formatDate(p.date)}</div>
+          <div class="date">${p.category ? escapeHtml(p.category) + " · " : ""}${formatDate(p.date)}</div>
           <h2>${escapeHtml(p.title)}</h2>
           <p>${escapeHtml(p.content.slice(0, 140))}${p.content.length > 140 ? "…" : ""}</p>
           <span class="read-more">Ler mais →</span>

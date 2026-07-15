@@ -11,20 +11,36 @@ export async function onRequestPost({ request, env }) {
 
     const title = (form.get("title") || "").toString().trim();
     const content = (form.get("content") || "").toString().trim();
+    const category = (form.get("category") || "").toString().trim();
+    const editingSlug = (form.get("editingSlug") || "").toString().trim();
+    const existingImage = (form.get("existingImage") || "").toString().trim();
     const image = form.get("image");
 
     if (!title || !content) {
       return json({ ok: false, error: "Preencha título e texto." }, 400);
     }
 
-    let baseSlug = slugify(title) || "post";
-    let slug = baseSlug;
-    let i = 2;
-    while (await env.BLOG_KV.get(`post:${slug}`)) {
-      slug = `${baseSlug}-${i++}`;
+    let slug;
+    let date;
+    let existingPost = null;
+
+    if (editingSlug) {
+      const raw = await env.BLOG_KV.get(`post:${editingSlug}`);
+      if (!raw) return json({ ok: false, error: "Post não encontrado para edição." }, 404);
+      existingPost = JSON.parse(raw);
+      slug = editingSlug;
+      date = existingPost.date;
+    } else {
+      const baseSlug = slugify(title) || "post";
+      slug = baseSlug;
+      let i = 2;
+      while (await env.BLOG_KV.get(`post:${slug}`)) {
+        slug = `${baseSlug}-${i++}`;
+      }
+      date = new Date().toISOString();
     }
 
-    let imageUrl = "";
+    let imageUrl = existingImage || (existingPost ? existingPost.image : "");
     if (image && typeof image === "object" && image.size > 0) {
       if (!env.BLOG_IMAGES) {
         return json({ ok: false, error: "Armazenamento de imagens não configurado." }, 500);
@@ -37,20 +53,24 @@ export async function onRequestPost({ request, env }) {
       imageUrl = `${env.BLOG_IMAGES_PUBLIC_URL}/${key}`;
     }
 
-    const post = {
-      slug,
-      title,
-      content,
-      image: imageUrl,
-      date: new Date().toISOString(),
-    };
-
+    const post = { slug, title, content, image: imageUrl, date, category };
     await env.BLOG_KV.put(`post:${slug}`, JSON.stringify(post));
 
-    const indexRaw = await env.BLOG_KV.get("post-index");
-    const index = indexRaw ? JSON.parse(indexRaw) : [];
-    index.unshift(slug);
-    await env.BLOG_KV.put("post-index", JSON.stringify(index));
+    if (!editingSlug) {
+      const indexRaw = await env.BLOG_KV.get("post-index");
+      const index = indexRaw ? JSON.parse(indexRaw) : [];
+      index.unshift(slug);
+      await env.BLOG_KV.put("post-index", JSON.stringify(index));
+    }
+
+    if (category) {
+      const categoriesRaw = await env.BLOG_KV.get("categories");
+      const categories = categoriesRaw ? JSON.parse(categoriesRaw) : [];
+      if (!categories.includes(category)) {
+        categories.push(category);
+        await env.BLOG_KV.put("categories", JSON.stringify(categories));
+      }
+    }
 
     return json({ ok: true, slug, url: `/blog/${slug}` });
   } catch (err) {
