@@ -21,7 +21,7 @@ export async function onRequestGet() {
 
       <label for="category">Seção</label>
       <select id="category"></select>
-      <input type="text" id="newCategoryInput" placeholder="Nome da nova seção" style="display:none; margin-top:10px;" />
+      <input type="text" id="newCategoryInput" placeholder="Nome da nova seção (ex.: Nossas cabanas)" style="display:none; margin-top:10px;" />
 
       <label for="image">Foto de capa</label>
       <input type="file" id="image" name="image" accept="image/*" />

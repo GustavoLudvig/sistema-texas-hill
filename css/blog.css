@@ -17,6 +17,19 @@
   gap: 32px;
 }
 
+/* Seções agrupadas */
+.blog-sections { max-width: var(--container); margin: 0 auto; padding: 60px 24px 90px; }
+.blog-section { margin-bottom: 64px; }
+.blog-section:last-child { margin-bottom: 0; }
+.blog-section > .section-label { display: block; margin-bottom: 6px; }
+.blog-section > h2 {
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  color: var(--text);
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--border);
+}
+.blog-section .blog-grid { max-width: none; margin: 0; padding: 28px 0 0; }
+
 .blog-card {
   background: var(--white);
   border: 1px solid var(--border);
@@ -130,6 +143,7 @@
 }
 .admin-card label:first-of-type { margin-top: 0; }
 
+.admin-card select,
 .admin-card input[type="text"],
 .admin-card input[type="password"],
 .admin-card textarea,
