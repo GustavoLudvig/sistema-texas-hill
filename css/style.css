@@ -365,6 +365,45 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 18px 0; 
 }
 .btn-verificar:hover { background: var(--accent-dark); }
 
+/* ===== Botão WhatsApp (acima das reservas) ===== */
+.booking-actions { margin: 4px 0 32px; }
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #25D366;
+  color: #fff;
+  padding: 15px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: .92rem;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  box-shadow: 0 6px 18px rgba(37, 211, 102, .28);
+  transition: background .2s ease, transform .2s ease;
+}
+.btn-whatsapp:hover { background: #1EBE5A; transform: translateY(-1px); }
+.btn-whatsapp svg { flex-shrink: 0; }
+
+/* ===== Botão Como chegar (seção mapa) ===== */
+.btn-como-chegar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  background: var(--accent);
+  color: var(--white);
+  padding: 13px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: .88rem;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  transition: background .2s ease, transform .2s ease;
+}
+.btn-como-chegar:hover { background: var(--accent-dark); transform: translateY(-1px); }
+.btn-como-chegar svg { flex-shrink: 0; }
+
 /* ===== Footer ===== */
 footer {
   background: var(--text);
