@@ -10,6 +10,8 @@ export async function onRequestGet() {
     <form id="publishForm">
       <input type="hidden" id="editingSlug" name="editingSlug" value="" />
       <input type="hidden" id="existingImage" name="existingImage" value="" />
+      <input type="hidden" id="existingImages" name="existingImages" value="" />
+      <input type="hidden" id="existingVideo" name="existingVideo" value="" />
 
       <label for="password">Senha</label>
       <input type="password" id="password" name="password" required />
@@ -28,6 +30,24 @@ export async function onRequestGet() {
       </div>
       <div id="currentImageHint" style="display:none; font-size:.82rem; color:var(--text-soft); margin-top:6px;">
         Já existe uma foto neste post. Só escolha um arquivo aqui se quiser trocá-la.
+      </div>
+
+      <label for="gallery">Mais imagens (galeria)</label>
+      <input type="file" id="gallery" name="gallery" accept="image/*" multiple />
+      <div style="font-size:.82rem; color:var(--text-soft); margin-top:6px; line-height:1.5;">
+        Opcional. Selecione <strong>várias fotos de uma vez</strong> — elas aparecem num <strong>carrossel ao lado do texto</strong>. Use fotos na horizontal, boa qualidade.
+      </div>
+      <div id="currentGalleryHint" style="display:none; font-size:.82rem; color:var(--text-soft); margin-top:6px;">
+        Este post já tem fotos na galeria. Só escolha arquivos aqui se quiser <strong>substituí-las</strong>.
+      </div>
+
+      <label for="video">Vídeo (opcional)</label>
+      <input type="file" id="video" name="video" accept="video/*" />
+      <div style="font-size:.82rem; color:var(--text-soft); margin-top:6px; line-height:1.5;">
+        Opcional. Máximo <strong>90 MB</strong>. Prefira vídeos <strong>curtos (até ~1 min) e já compactados</strong>. Ele aparece na postagem com botão de play.
+      </div>
+      <div id="currentVideoHint" style="display:none; font-size:.82rem; color:var(--text-soft); margin-top:6px;">
+        Este post já tem um vídeo. Só escolha um arquivo aqui se quiser trocá-lo.
       </div>
 
       <label for="content">Texto</label>
@@ -57,8 +77,16 @@ export async function onRequestGet() {
   const newCategoryInput = document.getElementById("newCategoryInput");
   const editingSlugInput = document.getElementById("editingSlug");
   const existingImageInput = document.getElementById("existingImage");
+  const existingImagesInput = document.getElementById("existingImages");
+  const existingVideoInput = document.getElementById("existingVideo");
   const currentImageHint = document.getElementById("currentImageHint");
+  const currentGalleryHint = document.getElementById("currentGalleryHint");
+  const currentVideoHint = document.getElementById("currentVideoHint");
+  const galleryInput = document.getElementById("gallery");
+  const videoInput = document.getElementById("video");
   const postsList = document.getElementById("postsList");
+
+  const MAX_VIDEO_MB = 90;
 
   let allPosts = [];
   let allCategories = [];
@@ -138,13 +166,13 @@ export async function onRequestGet() {
     document.getElementById("content").value = post.content;
     editingSlugInput.value = post.slug;
     existingImageInput.value = post.image || "";
+    existingImagesInput.value = JSON.stringify(post.images || []);
+    existingVideoInput.value = post.video || "";
     renderCategoryOptions(post.category || "");
 
-    if (post.image) {
-      currentImageHint.style.display = "block";
-    } else {
-      currentImageHint.style.display = "none";
-    }
+    currentImageHint.style.display = post.image ? "block" : "none";
+    currentGalleryHint.style.display = (post.images && post.images.length) ? "block" : "none";
+    currentVideoHint.style.display = post.video ? "block" : "none";
 
     btn.textContent = "Salvar alterações";
     cancelEditBtn.style.display = "block";
@@ -156,7 +184,11 @@ export async function onRequestGet() {
     formTitle.textContent = "Publicar no blog";
     editingSlugInput.value = "";
     existingImageInput.value = "";
+    existingImagesInput.value = "";
+    existingVideoInput.value = "";
     currentImageHint.style.display = "none";
+    currentGalleryHint.style.display = "none";
+    currentVideoHint.style.display = "none";
     btn.textContent = "Publicar";
     cancelEditBtn.style.display = "none";
     renderCategoryOptions("");
@@ -195,6 +227,14 @@ export async function onRequestGet() {
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+
+    if (videoInput.files[0] && videoInput.files[0].size > MAX_VIDEO_MB * 1024 * 1024) {
+      msg.className = "admin-msg error";
+      msg.textContent = "O vídeo passa de " + MAX_VIDEO_MB + " MB. Compacte ou encurte o vídeo antes de subir.";
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+      return;
+    }
+
     btn.disabled = true;
     const wasEditing = !!editingSlugInput.value;
     btn.textContent = wasEditing ? "Salvando..." : "Publicando...";

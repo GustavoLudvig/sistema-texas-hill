@@ -71,6 +71,42 @@
 }
 .post-body p { margin-bottom: 20px; }
 
+/* Layout com mídia ao lado do texto */
+.post-layout {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px 90px;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 52px;
+  align-items: start;
+}
+.post-layout .post-body {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+.post-media {
+  position: sticky;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.post-media .carousel { aspect-ratio: 4 / 3; }
+.post-video {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #000;
+}
+
+@media (max-width: 860px) {
+  .post-layout { grid-template-columns: 1fr; gap: 30px; padding-bottom: 70px; }
+  .post-media { position: static; }
+}
+
 .post-back {
   display: inline-block;
   margin: 0 auto 30px;
