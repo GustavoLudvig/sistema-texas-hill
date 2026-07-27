@@ -40,21 +40,11 @@ export async function onRequestGet({ params, env }) {
     ? `<video class="post-video" controls preload="metadata"${post.image ? ` poster="${post.image}"` : ""}><source src="${video}" /></video>`
     : "";
 
-  const bodyContent = hasMedia
-    ? `
-<div class="post-layout">
-  <article class="post-body">
-    ${paragraphs(post.content)}
-  </article>
-  <aside class="post-media">
-    ${carousel}
-    ${videoBlock}
-  </aside>
-</div>`
-    : `
+  const bodyContent = `
 <article class="post-body">
   ${paragraphs(post.content)}
-</article>`;
+</article>
+${hasMedia ? `<div class="post-media">${carousel}${videoBlock}</div>` : ""}`;
 
   const carouselScript = gallery.length > 1
     ? `
