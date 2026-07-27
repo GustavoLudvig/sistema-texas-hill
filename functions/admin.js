@@ -23,6 +23,9 @@ export async function onRequestGet() {
 
       <label for="image">Foto de capa</label>
       <input type="file" id="image" name="image" accept="image/*" />
+      <div style="font-size:.82rem; color:var(--text-soft); margin-top:6px; line-height:1.5;">
+        Opcional. Use fotos na <strong>horizontal (paisagem)</strong>, no formato <strong>16:9</strong> e com boa qualidade (ex.: 1600&times;900px). A foto aparece no topo da postagem — fotos em pé (vertical) ficam cortadas.
+      </div>
       <div id="currentImageHint" style="display:none; font-size:.82rem; color:var(--text-soft); margin-top:6px;">
         Já existe uma foto neste post. Só escolha um arquivo aqui se quiser trocá-la.
       </div>
